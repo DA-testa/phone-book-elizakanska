@@ -12,29 +12,16 @@ def write_res(rez):
 
 def process_q(queries):
     rez = []
-    # Keep list of all existing (i.e. not deleted yet) contacts.
-    contacts = []
+    # Use a dictionary to store contacts by number for fast lookup
+    contacts = {}
     for cur_q in queries:
         if cur_q.type == 'add':
-            # if we already have contact with such number,
-            # we should rewrite contact's name
-            for contact in contacts:
-                if contact.number == cur_q.number:
-                    contact.name = cur_q.name
-                    break
-            else: # otherwise, just add it
-                contacts.append(cur_q)
+            contacts[cur_q.number] = cur_q.name
         elif cur_q.type == 'del':
-            for j in range(len(contacts)):
-                if contacts[j].number == cur_q.number:
-                    contacts.pop(j)
-                    break
+            if cur_q.number in contacts:
+                del contacts[cur_q.number]
         else:
-            response = 'not found'
-            for contact in contacts:
-                if contact.number == cur_q.number:
-                    response = contact.name
-                    break
+            response = contacts.get(cur_q.number, 'not found')
             rez.append(response)
     return rez
 
@@ -44,4 +31,3 @@ def read_q():
 
 if __name__ == '__main__':
     write_res(process_q(read_q()))
-
