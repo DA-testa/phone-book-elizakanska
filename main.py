@@ -7,41 +7,41 @@ class Query:
         if self.type == 'add':
             self.name = query[2]
 
-def read_queries():
+def read_q():
     n = int(input())
     return [Query(input().split()) for i in range(n)]
 
-def write_responses(result):
-    print('\n'.join(result))
+def write_res(rez):
+    print('\n'.join(rez))
 
-def process_queries(queries):
-    result = []
+def process_q(queries):
+    rez = []
     # Keep list of all existing (i.e. not deleted yet) contacts.
     contacts = []
-    for cur_query in queries:
-        if cur_query.type == 'add':
+    for cur_q in queries:
+        if cur_q.type == 'add':
             # if we already have contact with such number,
             # we should rewrite contact's name
             for contact in contacts:
-                if contact.number == cur_query.number:
-                    contact.name = cur_query.name
+                if contact.number == cur_q.number:
+                    contact.name = cur_q.name
                     break
             else: # otherwise, just add it
-                contacts.append(cur_query)
-        elif cur_query.type == 'del':
+                contacts.append(cur_q)
+        elif cur_q.type == 'del':
             for j in range(len(contacts)):
-                if contacts[j].number == cur_query.number:
+                if contacts[j].number == cur_q.number:
                     contacts.pop(j)
                     break
         else:
             response = 'not found'
             for contact in contacts:
-                if contact.number == cur_query.number:
+                if contact.number == cur_q.number:
                     response = contact.name
                     break
-            result.append(response)
-    return result
+            rez.append(response)
+    return rez
 
 if __name__ == '__main__':
-    write_responses(process_queries(read_queries()))
+    write_res(process_q(read_q()))
 
