@@ -7,10 +7,6 @@ class Query:
         if self.type == 'add':
             self.name = query[2]
 
-def read_q():
-    n = int(input())
-    return [Query(input().split()) for i in range(n)]
-
 def write_res(rez):
     print('\n'.join(rez))
 
@@ -41,6 +37,10 @@ def process_q(queries):
                     break
             rez.append(response)
     return rez
+
+def read_q():
+    n = int(input())
+    return [Query(input().split()) for i in range(n)]
 
 if __name__ == '__main__':
     write_res(process_q(read_q()))
