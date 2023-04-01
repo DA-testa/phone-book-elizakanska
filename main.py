@@ -7,12 +7,8 @@ class Query:
         if self.type == 'add':
             self.name = query[2]
 
-def write_res(rez):
-    print('\n'.join(rez))
-
 def process_q(queries):
     rez = []
-    # Use a dictionary to store contacts by number for fast lookup
     contacts = {}
     for cur_q in queries:
         if cur_q.type == 'add':
@@ -27,7 +23,10 @@ def process_q(queries):
 
 def read_q():
     n = int(input())
-    return [Query(input().split()) for i in range(n)]
+    queries = []
+    for i in range(n):
+        queries.append(Query(input().split()))
+    return queries
 
 if __name__ == '__main__':
     write_res(process_q(read_q()))
