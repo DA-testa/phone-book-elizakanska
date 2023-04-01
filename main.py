@@ -10,10 +10,10 @@ class Query:
 def write_res(rez):
     print('\n'.join(rez))
     
-def process_q(queries):
-    rez = []
+def process_q(qs):
     contacts = {}
-    for cur_q in queries:
+    rez = []
+    for cur_q in qs:
         if cur_q.type == 'add':
             contacts[cur_q.number] = cur_q.name
         elif cur_q.type == 'del':
@@ -25,11 +25,11 @@ def process_q(queries):
     return rez
 
 def read_q():
+    qs = []
     n = int(input())
-    queries = []
     for i in range(n):
-        queries.append(Query(input().split()))
-    return queries
+        qs.append(Query(input().split()))
+    return qs
 
 if __name__ == '__main__':
     write_res(process_q(read_q()))
