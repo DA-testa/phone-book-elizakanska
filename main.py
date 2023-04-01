@@ -6,7 +6,10 @@ class Query:
         self.number = int(query[1])
         if self.type == 'add':
             self.name = query[2]
-
+            
+def write_res(rez):
+    print('\n'.join(rez))
+    
 def process_q(queries):
     rez = []
     contacts = {}
